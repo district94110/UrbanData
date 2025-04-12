@@ -170,7 +170,6 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
         routeDiv.dataset.routeId = route.route_id;
         routeDiv.dataset.feedId = feedId;
         
-
         routeDiv.addEventListener("click", () => {
             const { routeId, feedId } = routeDiv.dataset;
             const routeLayer = globalRouteLayers[feedId]?.[routeId];
@@ -191,8 +190,31 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
                 }
             }
         });
-
         routesList.appendChild(routeDiv);
+        const toggleButton = document.createElement("button");
+        toggleButton.className = "mt-2 px-4 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300";
+        toggleButton.textContent = "Toggle All Routes";
+
+        let allRoutesVisible = true;
+
+        toggleButton.addEventListener("click", () => {
+            allRoutesVisible = !allRoutesVisible;
+
+            Object.values(globalRouteLayers[feedId] || {}).forEach(routeLayer => {
+                if (allRoutesVisible) {
+                    routeLayer.polylines.forEach(polyline => polyline.addTo(map));
+                    routeLayer.stopMarkers.forEach(marker => marker.addTo(map));
+                } else {
+                    routeLayer.polylines.forEach(polyline => map.removeLayer(polyline));
+                    routeLayer.stopMarkers.forEach(marker => map.removeLayer(marker));
+                }
+            });
+
+            // Update the button text to reflect the current state
+            toggleButton.textContent = allRoutesVisible ? "Hide All Routes" : "Show All Routes";
+        });
+
+        routesList.appendChild(toggleButton);
     });
 
     if (allCoords.length > 0) {
