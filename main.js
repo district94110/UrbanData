@@ -191,31 +191,35 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
             }
         });
         routesList.appendChild(routeDiv);
-        const toggleButton = document.createElement("button");
-        toggleButton.className = "mt-2 px-4 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300";
-        toggleButton.textContent = "Toggle All Routes";
+        
+    });
 
-        let allRoutesVisible = true;
+    const toggleButton = document.createElement("button");
+    toggleButton.className = "mt-2 mb-2 px-4 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300";
+    toggleButton.textContent = "Toggle All Routes";
 
-        toggleButton.addEventListener("click", () => {
-            allRoutesVisible = !allRoutesVisible;
+    let allRoutesVisible = true;
 
-            Object.values(globalRouteLayers[feedId] || {}).forEach(routeLayer => {
-                if (allRoutesVisible) {
-                    routeLayer.polylines.forEach(polyline => polyline.addTo(map));
-                    routeLayer.stopMarkers.forEach(marker => marker.addTo(map));
-                } else {
-                    routeLayer.polylines.forEach(polyline => map.removeLayer(polyline));
-                    routeLayer.stopMarkers.forEach(marker => map.removeLayer(marker));
-                }
-            });
+    toggleButton.addEventListener("click", () => {
+        allRoutesVisible = !allRoutesVisible;
 
-            // Update the button text to reflect the current state
-            toggleButton.textContent = allRoutesVisible ? "Hide All Routes" : "Show All Routes";
+        Object.values(globalRouteLayers[feedId] || {}).forEach(routeLayer => {
+            if (allRoutesVisible) {
+                routeLayer.polylines.forEach(polyline => polyline.addTo(map));
+                routeLayer.stopMarkers.forEach(marker => marker.addTo(map));
+            } else {
+                routeLayer.polylines.forEach(polyline => map.removeLayer(polyline));
+                routeLayer.stopMarkers.forEach(marker => map.removeLayer(marker));
+            }
         });
 
-        routesList.appendChild(toggleButton);
+        // Update the button text to reflect the current state
+        toggleButton.textContent = allRoutesVisible ? "Hide All Routes" : "Show All Routes";
     });
+
+    routesList.parentNode.insertBefore(toggleButton, routesList);
+
+
 
     if (allCoords.length > 0) {
         const bounds = L.latLngBounds(allCoords);
