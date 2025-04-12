@@ -192,10 +192,8 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
             }
         });
 
-
         routesList.appendChild(routeDiv);
     });
-
 
     if (allCoords.length > 0) {
         const bounds = L.latLngBounds(allCoords);
