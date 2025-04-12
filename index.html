@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTFS Viewer</title>
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+      #map {
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <div class="max-w-7xl mx-auto p-4">
+      <h1 class="text-3xl font-bold mb-4">GTFS Map Viewer</h1>
+
+      <input
+        type="file"
+        id="gtfs-upload"
+        accept=".zip"
+        multiple
+        class="block mb-4 border border-gray-300 px-4 py-2 rounded w-full md:w-1/2"
+      />
+
+      <div class="grid md:grid-cols-4 gap-4">
+        <!-- Info Panel -->
+        <div class="md:col-span-1 bg-white p-4 rounded shadow">
+          <h2 class="text-xl font-semibold mb-2">Agency Info</h2>
+          <div id="agency-info" class="text-sm space-y-1 text-gray-700"></div>
+
+          <h2 class="text-xl font-semibold mt-4 mb-2">Routes</h2>
+          <div id="routes-list" class="text-sm space-y-2 overflow-auto max-h-[300px] text-gray-700"></div>
+        </div>
+
+        <!-- Map -->
+        <div class="md:col-span-3">
+          <div id="map" class="rounded shadow"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaflet JS + JSZip -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script src="main.js"></script>
+  </body>
+</html>
