@@ -166,7 +166,7 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
             <div class="text-xs text-gray-500">Route ID: ${route.route_id}</div>
         `;
 
-        routeDiv.classList.add("bg-blue-200");
+        routeDiv.classList.add("bg-blue-100");
         routeDiv.dataset.routeId = route.route_id;
         routeDiv.dataset.feedId = feedId;
         
@@ -182,12 +182,12 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
                     // Remove every polyline and marker.
                     routeLayer.polylines.forEach(polyline => map.removeLayer(polyline));
                     routeLayer.stopMarkers.forEach(marker => map.removeLayer(marker));
-                    routeDiv.classList.remove("bg-blue-200");
+                    routeDiv.classList.remove("bg-blue-100");
                 } else {
                     // Add every polyline and marker.
                     routeLayer.polylines.forEach(polyline => polyline.addTo(map));
                     routeLayer.stopMarkers.forEach(marker => marker.addTo(map));
-                    routeDiv.classList.add("bg-blue-200");
+                    routeDiv.classList.add("bg-blue-100");
                 }
             }
         });
