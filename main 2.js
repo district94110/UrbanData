@@ -117,7 +117,7 @@ function displayRoutes(routes, shapes, stops, shapeToRouteMap, routeStops, feedI
 
         const polyline = L.polyline(latlngs, {
             color,
-            weight: 2,
+            weight: 5,
             opacity: 0.5
         }).addTo(map);
 
